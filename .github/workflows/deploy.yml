@@ -1,0 +1,56 @@
+name: Build and Deploy to ECR
+
+on:
+ push:
+    branches:
+        - main
+
+env:
+    AWS_REGION: us-east-1
+    ECR_REPOSITORY: datavault-repo
+    IMAGE_TAG: latest
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Configure AWS credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                region: ${{ env.AWS_REGION }}
+            - name: Login to ECR
+              run: |
+                aws ecr get-login-password --region $AWS_REGION | \
+                docker login --username AWS --password-stdin \
+                891377349839.dkr.ecr.us-east-1.amazonaws.com
+
+            - name: Build Docker image
+              run: |
+                docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+
+            - name: Tag image
+              run: |
+                docker tag $ECR_REPOSITORY:$IMAGE_TAG \
+                891377349839.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+
+            - name: Push image to ECR
+              run: |
+                docker push 891377349839.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+
+            - name: Update Kubernetes manifest image
+              run: |
+                sed -i "s|image: .*|image: 891377349839.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment.yaml
+
+            - name: Commit updated manifest
+              run: |
+                git config user.name "github-actions"
+                git config user.email "actions@github.com"
+                git add k8s/deployment.yaml
+                git commit -m "Update image to latest" || echo "No changes"
+                git push
