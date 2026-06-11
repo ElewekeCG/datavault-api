@@ -9,7 +9,7 @@ on:
 env:
     AWS_REGION: us-east-1
     ECR_REPOSITORY: datavault-repo
-    IMAGE_TAG: v2.1
+    IMAGE_TAG: v2.2
 
 jobs:
     deploy:
