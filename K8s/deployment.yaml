@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datavault-api
+  namespace: default
+  labels:
+    app: datavault-api
+    version: "1.0"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: datavault-api
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: datavault-api
+        version: "1.0"
+    spec:
+      terminationGracePeriodSeconds: 30
+      imagePullSecrets:
+      - name: ecr-secret
+      containers:
+      - name: datavault-api
+        image: 891377349839.dkr.ecr.us-east-1.amazonaws.com/datavault-repo:v1.3
+        ports:
+        - containerPort: 8000
+        envFrom:
+        - configMapRef:
+            name: datavault-config
+        env:
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: datavault-secret
+              key: DB_PASSWORD
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: datavault-secret
+              key: DB_USER
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: datavault-secret
+              key: API_KEY
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: datavault-secret
+              key: JWT_SECRET
+
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "128Mi"
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+      

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: datavault-service
+  namespace: default
+  labels:
+    app: datavault-api
+spec:
+  selector:
+    app: datavault-api
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8000
+      nodePort: 30080
+  type: NodePort

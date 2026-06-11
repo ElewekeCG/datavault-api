@@ -1,0 +1,109 @@
+# ----------------------
+
+# Python
+
+# ----------------------
+
+**pycache**/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+
+venv/
+env/
+.venv/
+
+# Python env files
+
+.env
+.env.*
+
+# ----------------------
+
+# Docker
+
+# ----------------------
+
+*.tar
+*.log
+
+# ----------------------
+
+# Terraform
+
+# ----------------------
+
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Terraform local variables (can contain secrets)
+
+*.tfvars
+*.tfvars.json
+
+# ----------------------
+
+# AWS / Credentials
+
+# ----------------------
+
+*.pem
+*.key
+
+# ----------------------
+
+# IDE / OS
+
+# ----------------------
+
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ----------------------
+
+# Kubernetes
+
+# ----------------------
+
+# (OPTIONAL: only if you store secrets locally)
+
+secrets.yaml
+
+# ----------------------
+
+# Logs
+
+# ----------------------
+
+*.log
+
+# ----------------------
+
+# Build / cache
+
+# ----------------------
+
+dist/
+build/
+*.egg-info/
+
+# ----------------------
+
+# Misc
+
+# ----------------------
+
+*.bak
+*.tmp

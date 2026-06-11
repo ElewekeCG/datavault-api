@@ -1,0 +1,91 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info
+dist
+build
+eggs
+parts
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Virtual environments
+venv
+.venv
+env
+.env
+ENV
+
+# Environment files (never include secrets in image)
+.env
+.env.local
+.env.production
+*.env
+
+# Terraform files
+terraform-aws/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+.terraform/
+.terraform.lock.hcl
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Docker files
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose*.yml
+
+# Tests
+tests/
+test/
+*.test.py
+coverage/
+.coverage
+.pytest_cache/
+htmlcov/
+
+# Docs
+docs/
+*.md
+README*
+CHANGELOG*
+LICENSE
+
+# Logs
+logs/
+*.log
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.circleci/
+Jenkinsfile
+
+# k8s manifests (not needed in image)
+k8s/
+*.yaml
+*.yml

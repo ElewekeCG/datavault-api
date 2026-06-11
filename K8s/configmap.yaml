@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datavault-config
+data:
+  APP_ENV: "production"
+  APP_PORT: "3000"
+  LOG_LEVEL: "info"
+  DB_NAME: "datavault"
+  MAX_CONNECTIONS: "100"
+  CACHE_TTL: "3600"
