@@ -1,5 +1,8 @@
 name: Build and Deploy to ECR
 
+permissions:
+  contents: write
+
 on:
  push:
     branches:
@@ -51,7 +54,7 @@ jobs:
             - name: Commit updated manifest
               run: |
                 git config user.name "github-actions"
-                git config user.email "actions@github.com"
+                git config user.email "github-actions@github.com"
                 git add K8s/deployment.yaml
                 git commit -m "Update image to latest" || echo "No changes"
                 git push
