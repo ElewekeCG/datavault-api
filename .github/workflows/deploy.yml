@@ -9,7 +9,7 @@ on:
 env:
     AWS_REGION: us-east-1
     ECR_REPOSITORY: datavault-repo
-    IMAGE_TAG: v2
+    IMAGE_TAG: v2.0
 
 jobs:
     deploy:
@@ -48,7 +48,7 @@ jobs:
               run: |
                 pwd
                 ls -R
-                
+
             - name: Update Kubernetes manifest image
               run: |
                 sed -i "s|image: .*|image: 891377349839.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment.yaml
