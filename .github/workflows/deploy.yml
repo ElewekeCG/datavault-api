@@ -44,14 +44,9 @@ jobs:
               run: |
                 docker push 891377349839.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
 
-            - name: Debug repo structure
-              run: |
-                pwd
-                ls -R
-
             - name: Update Kubernetes manifest image
               run: |
-                sed -i "s|image: .*|image: 891377349839.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG|g" k8s/deployment.yaml
+                sed -i "s|image: .*|image: 891377349839.dkr.ecr.us-east-1.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG|g" K8s/deployment.yaml
 
             - name: Commit updated manifest
               run: |
