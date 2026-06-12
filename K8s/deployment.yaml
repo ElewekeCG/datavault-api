@@ -27,7 +27,7 @@ spec:
       - name: ecr-secret
       containers:
       - name: datavault-api
-        image: 891377349839.dkr.ecr.us-east-1.amazonaws.com/datavault-repo:v2.4
+        image: 891377349839.dkr.ecr.us-east-1.amazonaws.com/datavault-repo:v1.3
         ports:
         - containerPort: 8000
         envFrom:
