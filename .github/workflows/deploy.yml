@@ -12,7 +12,7 @@ on:
 env:
     AWS_REGION: us-east-1
     ECR_REPOSITORY: datavault-repo
-    IMAGE_TAG: v2.3
+    IMAGE_TAG: v3.0
 
 jobs:
     deploy:
@@ -37,7 +37,6 @@ jobs:
             - name: Build Docker image
               run: |
                 docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
-
             - name: Tag image
               run: |
                 docker tag $ECR_REPOSITORY:$IMAGE_TAG \
