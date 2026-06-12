@@ -114,7 +114,7 @@ def health():
     Returns 200 if the service is healthy, 503 if degraded.
     """
 
-    raise HTTPException(status_code=503, detail="Service degraded")
+    # raise HTTPException(status_code=503, detail="Service degraded")
     uptime_seconds = int(time.time() - START_TIME)
     return {
         "status": "ok",
